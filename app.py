@@ -6,7 +6,7 @@ import pickle
 
 app = Flask(__name__)
 modelGB = pickle.load(open('model_digits_GB', 'rb'))
-# modelDT = pickle.load(open('model_digits_DT', 'rb'))
+modelDT = pickle.load(open('model_digits_DT', 'rb'))
 
 @app.route('/')
 def home():
@@ -19,9 +19,9 @@ def predict():
     final_features = list(map(int, feature_list))
     
     predictionGB = modelGB.predict(final_features)
-   # predictionDT = modelDT.predict(final_features)
+    predictionDT = modelDT.predict(final_features)
 
-    return render_template('index.html', prediction_text='Naive Bayes predicts {}'.format(predictionGB))
+    return render_template('index.html', prediction_text='Naive Bayes predicts {} and ID3 predicts {}'.format(predictionGB,predictionDT))
 
 
 if __name__ == "__main__":
